@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  app:
+    platform: linux/amd64
+    build:
+      context: ./app
+      args:
+        - development=1
+    image: my_img
+    container_name: MyCont
+    ports:
+      - "127.0.0.1:5000:5000"
+    expose:
+      - "5000"
+    volumes:
+      - ./app:/app
+    command: tail -F anything # uncomment during development
+    restart: always
+    
