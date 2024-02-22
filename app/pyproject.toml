@@ -2,7 +2,7 @@
 name = "app"
 version = "0.1.0"
 description = "Base template"
-authors = ["Eldar Boltachev <Eldar.Boltachev@bia-tech.ru>"]
+authors = ["Eldar Boltachev <eldar.boltachev@yandex.ru>"]
 license = "MIT License"
 readme = "README.md"
 
