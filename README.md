@@ -94,6 +94,34 @@ docker compose down --rmi all
 > Успешная настройка проекта и актуализация зависимостей
 > позволяет использовать стандартные инструменты PyCharm.
 
+## Подключение к контейнеру через SSH
+Подключение к удаленному контейнеру по SSH зависит от базового образа.\
+Для Ubuntu 22.04 с правами администратора порядок следующий.
+
+### Настройка через консоль:
+1. Запустить контейнер, из которого открыть порт 22: `docker run -it --name CONTAINER -p PORT:22 -d ubuntu:22.04`
+1. Подключиться к контейнеру: `docker exec -it CONTAINER bash`
+1. Установить `openssh-server`
+1. Командой `passwd root` задать пароль администратора
+1. В файл `/etc/ssh/sshd_config` новую строку `PermitRootLogin yes`
+1. Запустить службу командой `service ssh start`; проверка: `service --status-all` $\to$ `[ + ]  ssh`
+1. Выйти из контейнера
+
+### Настройка через файл Docker:
+```bash
+FROM ubuntu:22.04
+RUN apt-get update && apt-get install -y openssh-server
+RUN mkdir /var/run/sshd
+RUN echo 'root:PASSWORD' | chpasswd
+RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]
+```
+
+### Подключение:
+- для консоли: `ssh root@IP -p PORT`
+- для IDE порядок может отличаться, включая доп.плату
+
 ## Источники
 1. [Running Docker Containers Indefinitely](https://www.baeldung.com/ops/running-docker-containers-indefinitely)
 1. [Ubuntu: Docker Official Image](https://hub.docker.com/_/ubuntu/tags)
