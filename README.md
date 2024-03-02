@@ -99,8 +99,8 @@ docker compose down --rmi all
 Для Ubuntu 22.04 с правами администратора порядок следующий.
 
 ### Настройка через консоль:
-1. Запустить контейнер, из которого открыть порт 22: `docker run -it --name CONTAINER -p PORT:22 -d ubuntu:22.04`
-1. Подключиться к контейнеру: `docker exec -it CONTAINER bash`
+1. Запустить контейнер, из которого открыть порт 22: `docker run -it --name MyCont -p PORT:22 -d ubuntu:22.04`
+1. Подключиться к контейнеру: `docker exec -it MyCont bash`
 1. Установить `openssh-server`
 1. Командой `passwd root` задать пароль администратора
 1. В файл `/etc/ssh/sshd_config` новую строку `PermitRootLogin yes`
