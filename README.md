@@ -40,6 +40,10 @@ Project
 для разработки - pytest.
 Любая доступная зависимость [устанавливается](https://python-poetry.org/docs/cli/#add)
 и [удаляется](https://python-poetry.org/docs/cli/#remove) через методы poetry (указаны ниже).
+В шаблоне poetry создает и использует виртуальную среду,
+для ее отключения в Dockerfile следует использовать команду
+(с последующим удалением строк, относящихся к переменной виртуального окружения `PATH`):\
+`RUN poetry config virtualenvs.create false`
 
 ## Команды для работы
 
